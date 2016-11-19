@@ -1,7 +1,10 @@
 DATAS SEGMENT
-   OP1 DW 256
-   OP2 DW 520
+   OP1 DW ?
+   OP2 DW ?
    RESULT DB 5 DUP(?)
+   BUFFSIZE DB 25 
+   ACT DB ?
+   TEXT DB 25 DUP(?)
 DATAS ENDS
 
 STACKS SEGMENT
@@ -13,6 +16,24 @@ CODES SEGMENT
 START:
     MOV AX,DATAS
     MOV DS,AX
+    LEA DX, BUFFSIZE
+    MOV AH, 0AH
+    INT 21H
+    
+    MOV DL, 13
+    MOV AH,2
+    INT 21H
+    MOV DL, 0AH
+    MOV AH, 2
+    INT 21H
+    
+    LEA DX,  TEXT
+  
+    
+    
+    
+    
+    
     MOV AX, OP1
     ADD AX, OP2
     LEA BX, RESULT
@@ -36,7 +57,8 @@ L2:
 	ADD DL,30H
 	MOV AH, 2
     INT 21H
-    DEC BX   
+    DEC BX
+   
 LOOP L2
    
    
@@ -44,5 +66,7 @@ LOOP L2
     INT 21H
 CODES ENDS
     END START
+
+
 
 
