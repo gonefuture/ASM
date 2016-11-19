@@ -1,0 +1,29 @@
+DATAS SEGMENT
+    OP1 DW 256
+    OP2 DW 520
+    RESULT DB 5 DUP(?);此处输入数据段代码  
+DATAS ENDS
+
+STACKS SEGMENT
+    ;此处输入堆栈段代码
+STACKS ENDS
+
+CODES SEGMENT
+    ASSUME CS:CODES,DS:DATAS,SS:STACKS
+START:
+
+    MOV AX,DATAS
+    MOV DS,AX
+    MOV AX, OP1
+    ADD OP2, AX
+    AAA
+    
+    MOV DL,AL
+    MOV AH,2
+    INT 21H
+    ;此处输入代码段代码
+    
+    MOV AH,4CH
+    INT 21H
+CODES ENDS
+    END START
