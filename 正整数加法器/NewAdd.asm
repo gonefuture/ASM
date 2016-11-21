@@ -16,10 +16,11 @@ CODES SEGMENT
 START:
     MOV AX,DATAS
     MOV DS,AX
+    MOV AX,STACKS
+    MOV SS,AX
     LEA DX, BUFFSIZE
     MOV AH, 0AH
     INT 21H
-    
     MOV DL, 13
     MOV AH,2
     INT 21H
@@ -27,8 +28,16 @@ START:
     MOV AH, 2
     INT 21H
     
-    LEA DX,  TEXT
-  
+    LEA BX,  TEXT
+T1: 
+	MOV AX, 2BH
+	PUSH [BX]
+	CMP AX, [BX]
+	ADD BX, 1
+  	LOOP T1
+T2:
+	ADD BX, 1
+	
     
     
     
